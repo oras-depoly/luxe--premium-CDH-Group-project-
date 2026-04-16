@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUXE STORE — Premium E-Commerce</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link REL="stylesheet" href="./styles.css"
+
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Overlay -->
+<div class="sidebar-overlay" id="overlay" onclick="closeAll()"></div>
+
+<!-- ─── NAVBAR ─── -->
+<nav id="navbar">
+  <div class="nav-logo" onclick="navigate('home')">LUXE</div>
+  <ul class="nav-links">
+    <li><a onclick="navigate('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="navigate('shop')" id="nav-shop">Shop</a></li>
+    <li><a onclick="filterCategory('Electronics')" id="nav-electronics">Electronics</a></li>
+    <li><a onclick="filterCategory('Fashion')" id="nav-fashion">Fashion</a></li>
+    <li><a onclick="navigate('about')" id="nav-about">About Us</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="openSearch()" title="Search"><i class="fas fa-search"></i></button>
+    <button class="nav-btn" onclick="openCart()" title="Cart">
+      <i class="fas fa-shopping-bag"></i>
+      <span class="badge" id="cartBadge">0</span>
+    </button>
+    <button class="nav-btn" onclick="navigate('wishlist')" title="Wishlist">
+      <i class="fas fa-heart"></i>
+      <span class="badge" id="wishBadge">0</span>
+    </button>
+    <button class="hamburger" id="hamburger" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="navigate('home');toggleMobile()">Home</a>
+  <a onclick="navigate('shop');toggleMobile()">Shop</a>
+  <a onclick="filterCategory('Electronics');toggleMobile()">Electronics</a>
+  <a onclick="filterCategory('Fashion');toggleMobile()">Fashion</a>
+  <a onclick="navigate('about');toggleMobile()">About Us</a>
+</div>
+
+<!-- ─── SEARCH MODAL ─── -->
+<div class="search-modal" id="searchModal" onclick="closeSearch(event)">
+  <div style="width:100%;max-width:640px;margin:0 20px" onclick="e=>e.stopPropagation()">
+    <div class="search-box" onclick="event.stopPropagation()">
+      <i class="fas fa-search"></i>
+      <input class="search-input" id="searchInput" placeholder="Search products..." oninput="handleSearch(this.value)" autocomplete="off">
+      <button class="close-btn" onclick="closeSearch()" style="flex-shrink:0"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="search-results" id="searchResults" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ─── CART SIDEBAR ─── -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <div class="cart-title">Your Cart</div>
+    <button class="close-btn" onclick="closeAll()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter"></div>
+</div>
+
+<!-- ─────────── PAGE: HOME ─────────── -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-tag"><i class="fas fa-star"></i> New Collection 2025</div>
+        <h1 class="hero-title">
+          Discover <span class="gold">Luxury</span> at Your Fingertips
+        </h1>
+        <p class="hero-desc">Premium products curated for the modern lifestyle. From cutting-edge electronics to haute couture — experience shopping redefined.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="navigate('shop')"><i class="fas fa-arrow-right"></i> Shop Now</button>
+          <button class="btn btn-outline" onclick="navigate('about')">Our Story</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-num">50K+</span><span class="stat-label">Products</span></div>
+          <div class="stat"><span class="stat-num">200K+</span><span class="stat-label">Customers</span></div>
+          <div class="stat"><span class="stat-num">4.9★</span><span class="stat-label">Rating</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-cards-grid">
+          <div class="hero-card" onclick="openProduct(1)">
+            <div class="hero-card-badge">NEW</div>
+            <div class="hero-card-img float"><i class="fas fa-headphones"></i></div>
+            <div class="hero-card-info">
+              <div class="hero-card-name">Pro ANC Headphones</div>
+              <div class="hero-card-price">₹12,999</div>
+            </div>
+          </div>
+          <div class="hero-card" onclick="openProduct(4)">
+            <div class="hero-card-img"><i class="fas fa-tshirt"></i></div>
+            <div class="hero-card-info">
+              <div class="hero-card-name">Designer Tee</div>
+              <div class="hero-card-price">₹2,499</div>
+            </div>
+          </div>
+          <div class="hero-card" onclick="openProduct(2)">
+            <div class="hero-card-img"><i class="fas fa-watch"></i></div>
+            <div class="hero-card-info">
+              <div class="hero-card-name">Smart Watch</div>
+              <div class="hero-card-price">₹18,999</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-inner" id="marqueeInner"></div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="section">
+    <div class="section-label">Browse</div>
+    <h2 class="section-title">Shop by <span>Category</span></h2>
+    <div class="divider"></div>
+    <div class="categories-grid" id="categoriesGrid"></div>
+  </div>
+
+  <!-- FEATURED PRODUCTS -->
+  <div class="section" style="padding-top:0">
+    <div class="products-toolbar">
+      <div>
+        <div class="section-label">Handpicked</div>
+        <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.4rem)">Featured <span>Products</span></h2>
+      </div>
+      <button class="btn btn-ghost" onclick="navigate('shop')">View All <i class="fas fa-arrow-right"></i></button>
+    </div>
+    <div class="products-grid" id="featuredGrid"></div>
+  </div>
+
+  <!-- FEATURED BANNER -->
+  <div class="section" style="padding-top:0; padding-bottom:0">
+    <div class="featured-banner">
+      <div class="featured-content">
+        <div class="featured-tag">Limited Edition</div>
+        <h2 class="section-title">The <span>Ultra Pro</span> Collection</h2>
+        <p style="color:var(--text2); line-height:1.7; margin-bottom:32px; max-width:440px">Experience the pinnacle of engineering and design. Our Ultra Pro collection pushes boundaries of what's possible, crafted for those who demand the extraordinary.</p>
+        <button class="btn btn-primary" onclick="filterCategory('Electronics')">Explore Now <i class="fas fa-arrow-right"></i></button>
+      </div>
+      <div class="featured-visual"><i class="fas fa-laptop float" style="font-size:9rem;opacity:0.6"></i></div>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter-section">
+    <div class="newsletter-inner">
+      <div class="section-label" style="justify-content:center">Stay Updated</div>
+      <h2 class="section-title" style="font-size:2rem">Get Exclusive <span>Deals</span></h2>
+      <p style="color:var(--text2); font-size:0.9rem; margin-top:8px">Subscribe to our newsletter and be the first to know about new arrivals, exclusive deals, and more.</p>
+      <div class="newsletter-form">
+        <input type="email" id="newsletterEmail" placeholder="Enter your email address">
+        <button class="btn btn-primary" onclick="subscribeNewsletter()">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── PAGE: SHOP ─────────── -->
+<div class="page" id="page-shop">
+  <div class="section" style="padding-top:110px">
+    <div class="section-label">All Products</div>
+    <h2 class="section-title">Our <span>Collection</span></h2>
+    <div class="divider"></div>
+    <div class="products-toolbar">
+      <div class="filter-tabs" id="shopFilters"></div>
+      <select class="sort-select" id="sortSelect" onchange="sortProducts(this.value)">
+        <option value="default">Sort: Default</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="rating">Best Rated</option>
+        <option value="name">Name A-Z</option>
+      </select>
+    </div>
+    <div class="products-grid" id="shopGrid"></div>
+  </div>
+</div>
+
+<!-- ─────────── PAGE: PRODUCT DETAIL ─────────── -->
+<div class="page" id="page-product">
+  <div class="section" style="padding-top:100px">
+    <button class="btn btn-ghost" onclick="goBack()" style="margin-bottom:32px"><i class="fas fa-arrow-left"></i> Back</button>
+    <div class="product-detail-inner" id="productDetailInner"></div>
+  </div>
+</div>
+
+<!-- ─────────── PAGE: WISHLIST ─────────── -->
+<div class="page" id="page-wishlist">
+  <div class="section" style="padding-top:110px">
+    <div class="section-label">Saved</div>
+    <h2 class="section-title">Your <span>Wishlist</span></h2>
+    <div class="divider"></div>
+    <div class="products-grid" id="wishlistGrid"></div>
+    <div id="wishlistEmpty" style="display:none;text-align:center;padding:80px 0">
+      <i class="fas fa-heart" style="font-size:3rem;color:var(--border);margin-bottom:16px;display:block"></i>
+      <p style="color:var(--text3);font-family:'Syne',sans-serif;letter-spacing:1px">Your wishlist is empty</p>
+      <button class="btn btn-primary" onclick="navigate('shop')" style="margin-top:24px">Explore Products</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── PAGE: CHECKOUT ─────────── -->
+<div class="page" id="page-checkout">
+  <div class="section" style="padding-top:100px">
+    <button class="btn btn-ghost" onclick="openCart()" style="margin-bottom:32px"><i class="fas fa-arrow-left"></i> Back to Cart</button>
+    <div class="section-label">Final Step</div>
+    <h2 class="section-title">Checkout</h2>
+    <div class="divider"></div>
+    <div class="checkout-grid" id="checkoutGrid"></div>
+  </div>
+</div>
+
+<!-- ─────────── PAGE: ORDER SUCCESS ─────────── -->
+<div class="page" id="page-success">
+  <div class="order-success">
+    <div class="success-icon"><i class="fas fa-check"></i></div>
+    <h2 class="section-title">Order <span>Placed!</span></h2>
+    <p style="color:var(--text2);max-width:480px;line-height:1.7;margin-top:12px;margin-bottom:32px">Thank you for your order! You'll receive a confirmation email shortly. Your premium items will be delivered within 3-5 business days.</p>
+    <div id="orderConfirmNum" style="font-family:'Syne',sans-serif;font-size:0.82rem;letter-spacing:2px;color:var(--text3);margin-bottom:32px"></div>
+    <button class="btn btn-primary" onclick="navigate('home')"><i class="fas fa-home"></i> Continue Shopping</button>
+  </div>
+</div>
+
+<!-- ─────────── PAGE: ABOUT ─────────── -->
+<div class="page" id="page-about">
+  <!-- About Hero -->
+  <div class="about-hero">
+    <div class="about-hero-bg"></div>
+    <div class="about-hero-inner">
+      <div>
+        <div class="section-label">Our Story</div>
+        <h1 class="section-title">Crafting <span>Luxury</span> Experiences Since 2020</h1>
+        <div class="divider"></div>
+        <p style="color:var(--text2);line-height:1.8;font-size:1.05rem;margin-bottom:24px">LUXE was born from a simple belief — that premium quality and exceptional design should be accessible to everyone. We curate the finest products from around the world, ensuring every purchase tells a story of craftsmanship and innovation.</p>
+        <p style="color:var(--text3);line-height:1.7;font-size:0.92rem">From our humble beginnings in 2020 to serving over 200,000 satisfied customers today, we've stayed true to our founding principles: quality, transparency, and an unwavering commitment to customer delight.</p>
+      </div>
+      <div class="about-visual float"><i class="fas fa-store"></i></div>
+    </div>
+  </div>
+
+  <!-- Values -->
+  <div class="section">
+    <div class="section-label">What Drives Us</div>
+    <h2 class="section-title">Our <span>Core Values</span></h2>
+    <div class="divider"></div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-gem"></i></div>
+        <div class="value-name">Premium Quality</div>
+        <div class="value-desc">Every product in our catalog undergoes rigorous quality checks. We partner only with brands that share our uncompromising standards.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="value-name">Trust & Transparency</div>
+        <div class="value-desc">No hidden fees, no false promises. We believe in honest pricing, clear policies, and building relationships founded on trust.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-bolt"></i></div>
+        <div class="value-name">Lightning Fast</div>
+        <div class="value-desc">From browsing to delivery, we've optimized every touchpoint. Your orders ship within 24 hours, delivered within 3-5 business days.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-leaf"></i></div>
+        <div class="value-name">Sustainability</div>
+        <div class="value-desc">We're committed to carbon-neutral shipping, eco-friendly packaging, and partnering with brands that care about the planet's future.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-headset"></i></div>
+        <div class="value-name">24/7 Support</div>
+        <div class="value-desc">Our dedicated support team is always available to assist you. Real humans, real solutions, real care for every customer interaction.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-undo"></i></div>
+        <div class="value-name">Hassle-Free Returns</div>
+        <div class="value-desc">30-day no-questions-asked return policy. Shopping with us is risk-free because we stand behind every product we sell.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team -->
+  <div class="section" style="padding-top:0">
+    <div class="section-label">The People</div>
+    <h2 class="section-title">Meet the <span>Team</span></h2>
+    <div class="divider"></div>
+    <div class="team-grid">
+      <!-- Leader -->
+      <div class="team-card leader" style="grid-column:1/-1;max-width:360px;margin:0 auto;width:100%">
+        <div class="team-avatar">
+          SM
+          <i class="fas fa-crown team-crown"></i>
+        </div>
+        <div class="team-name">Sujal Makwana</div>
+        <div class="team-role">Leader & Instruction Provider</div>
+        <div class="team-desc">Visionary leader driving the project forward with clear direction and strategic insights. Sujal oversees all aspects of the platform ensuring every feature aligns with the customer-first philosophy.</div>
+        <div class="team-socials">
+          <div class="team-social"><i class="fab fa-linkedin"></i></div>
+          <div class="team-social"><i class="fab fa-twitter"></i></div>
+          <div class="team-social"><i class="fab fa-github"></i></div>
+        </div>
+      </div>
+      <!-- Team Members -->
+      <div class="team-card">
+        <div class="team-avatar">OM</div>
+        <div class="team-name">Om Makwana</div>
+        <div class="team-role">Web Designer</div>
+        <div class="team-desc">Creative mind behind LUXE's stunning visuals. Om crafts pixel-perfect designs that balance aesthetics with seamless user experience.</div>
+        <div class="team-socials">
+          <div class="team-social"><i class="fab fa-dribbble"></i></div>
+          <div class="team-social"><i class="fab fa-behance"></i></div>
+          <div class="team-social"><i class="fab fa-instagram"></i></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">AK</div>
+        <div class="team-name">Ahad Kothariya</div>
+        <div class="team-role">Web Coder</div>
+        <div class="team-desc">Full-stack developer with a passion for clean, efficient code. Ahad architects the robust systems that power LUXE's seamless shopping experience.</div>
+        <div class="team-socials">
+          <div class="team-social"><i class="fab fa-github"></i></div>
+          <div class="team-social"><i class="fab fa-linkedin"></i></div>
+          <div class="team-social"><i class="fab fa-codepen"></i></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">RR</div>
+        <div class="team-name">Rohit Rathod</div>
+        <div class="team-role">Web Coder</div>
+        <div class="team-desc">Specialist in frontend engineering and performance optimization. Rohit ensures LUXE runs lightning fast across all devices and browsers.</div>
+        <div class="team-socials">
+          <div class="team-social"><i class="fab fa-github"></i></div>
+          <div class="team-social"><i class="fab fa-linkedin"></i></div>
+          <div class="team-social"><i class="fab fa-stack-overflow"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="section" style="padding-top:0">
+    <div class="section-label">Journey</div>
+    <h2 class="section-title">Our <span>Story</span></h2>
+    <div class="divider"></div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-year">2020</div>
+        <div class="tl-content">
+          <div class="tl-dot"></div>
+          <div class="tl-title">The Beginning</div>
+          <div class="tl-text">LUXE was founded with a vision to democratize premium shopping. Started with 500 products and a passionate team of 4.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-content">
+          <div class="tl-dot"></div>
+          <div class="tl-title">First 10,000 Customers</div>
+          <div class="tl-text">Within our first year, we celebrated 10,000 happy customers and expanded our catalog to 5,000 products across 20 categories.</div>
+        </div>
+        <div class="tl-year">2021</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-year">2022</div>
+        <div class="tl-content">
+          <div class="tl-dot"></div>
+          <div class="tl-title">Mobile Launch & Expansion</div>
+          <div class="tl-text">Launched our mobile app, introduced same-day delivery in 10 major cities, and crossed ₹10 crore in annual revenue.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-content">
+          <div class="tl-dot"></div>
+          <div class="tl-title">200K Milestone & AI</div>
+          <div class="tl-text">Reached 200,000 customers, launched AI-powered recommendations, and introduced our sustainability initiative with carbon-neutral shipping.</div>
+        </div>
+        <div class="tl-year">2025</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Strip -->
+  <div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:60px 40px">
+    <div style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:30px;text-align:center">
+      <div>
+        <i class="fas fa-envelope" style="font-size:1.8rem;color:var(--accent);margin-bottom:12px;display:block"></i>
+        <div style="font-family:'Syne',sans-serif;font-size:0.72rem;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Email Us</div>
+        <div style="color:var(--text2)">hello@luxestore.in</div>
+      </div>
+      <div>
+        <i class="fas fa-phone" style="font-size:1.8rem;color:var(--accent);margin-bottom:12px;display:block"></i>
+        <div style="font-family:'Syne',sans-serif;font-size:0.72rem;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Call Us</div>
+        <div style="color:var(--text2)">+91 98765 43210</div>
+      </div>
+      <div>
+        <i class="fas fa-map-marker-alt" style="font-size:1.8rem;color:var(--accent);margin-bottom:12px;display:block"></i>
+        <div style="font-family:'Syne',sans-serif;font-size:0.72rem;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Visit Us</div>
+        <div style="color:var(--text2)">Ahmedabad, Gujarat, India</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER (shared) ─── -->
+<footer id="mainFooter">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo">LUXE</span>
+        <p class="footer-desc">Premium e-commerce platform curating the finest products for the modern lifestyle. Quality, trust, and exceptional service — always.</p>
+        <div class="footer-socials">
+          <div class="footer-social"><i class="fab fa-instagram"></i></div>
+          <div class="footer-social"><i class="fab fa-twitter"></i></div>
+          <div class="footer-social"><i class="fab fa-facebook"></i></div>
+          <div class="footer-social"><i class="fab fa-youtube"></i></div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Shop</div>
+        <ul class="footer-links">
+          <li><a onclick="navigate('shop')">All Products</a></li>
+          <li><a onclick="filterCategory('Electronics')">Electronics</a></li>
+          <li><a onclick="filterCategory('Fashion')">Fashion</a></li>
+          <li><a onclick="filterCategory('Home & Living')">Home & Living</a></li>
+          <li><a onclick="filterCategory('Sports')">Sports</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a onclick="navigate('about')">About Us</a></li>
+          <li><a>Careers</a></li>
+          <li><a>Press</a></li>
+          <li><a>Blog</a></li>
+          <li><a>Partners</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Support</div>
+        <ul class="footer-links">
+          <li><a>Help Center</a></li>
+          <li><a>Track Order</a></li>
+          <li><a>Returns</a></li>
+          <li><a>Privacy Policy</a></li>
+          <li><a>Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 LUXE Store. Built with ❤️ by Team LUXE — Sujal Makwana, Om Makwana, Ahad Kothariya, Rohit Rathod</div>
+      <div class="footer-payments">
+        <span class="pay-icon">VISA</span>
+        <span class="pay-icon">MC</span>
+        <span class="pay-icon">UPI</span>
+        <span class="pay-icon">GPay</span>
+        <span class="pay-icon">COD</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="./logic.js"></script>
+</body>
+</html>
