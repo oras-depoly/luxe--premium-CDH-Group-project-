@@ -126,22 +126,6 @@ Ahmedabad, Gujarat, India
 
 ---
 
-## ⚠️ Notes
-
-* Ensure correct linking of:
-
-  ```html
-  <link rel="stylesheet" href="./styles.css">
-  ```
-
-  (Fix typo: `REL` → `rel`)
-
-* Requires internet for:
-
-  * Google Fonts
-  * Font Awesome CDN
-
----
 
 ## 📜 License
 
